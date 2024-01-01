@@ -21,8 +21,8 @@ int main() {
 void fill_screen(uint8_t* screen_buffer) {
     for (long i = 0; i < LENGTH; ++i) {
         for (long j = 0; j < LENGTH; ++j) {
-            const double x0 = 0;
-            const double y0 = 0;
+            const double x0 = (double)(i - LENGTH) * (1 / LENGTH);
+            const double y0 = (double)(j - LENGTH) * (1 / LENGTH);
             double x = 0;
             double y = 0;
 
