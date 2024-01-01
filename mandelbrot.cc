@@ -1,6 +1,9 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cmath>
+#include <cstdio>
+
+#include <iostream>
 
 /* #include <opencv2/core.hpp> */
 /* #include <opencv2/highgui.hpp> */
@@ -14,6 +17,16 @@ const uint8_t PALETTE[20] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 
 int main() {
     uint8_t* screen_buffer = (uint8_t*)malloc(LENGTH * LENGTH * sizeof(uint8_t));
     fill_screen(screen_buffer);
+
+    // create buffer
+    FILE* fptr = fopen("output", "wb");
+
+    for (size_t i = 0; i < LENGTH; ++i) {
+        for (size_t j = 0; j < LENGTH; ++j) {
+            const size_t index = i + j * LENGTH;
+            fputc(screen_buffer[index], fptr);
+        }
+    }
 
     return 0;
 }
@@ -29,7 +42,7 @@ void fill_screen(uint8_t* screen_buffer) {
             long iteration = 0;
             const long max_iteration = 1000;
 
-            while (pow(x, x) + pow(y, y) <= 2 * 2 && iteration < max_iteration) {
+            while (x * x + y * y <= 4 && iteration < max_iteration) {
                 const double xtemp = x * x - y * y + x0;
                 y = 2 * x * y + y0;
                 x = xtemp;
@@ -38,8 +51,10 @@ void fill_screen(uint8_t* screen_buffer) {
             }
 
             const uint8_t color = PALETTE[iteration];
+            printf("%d\n", color);
 
-            const size_t index = (size_t)i + j * LENGTH;
+            const size_t index = (size_t)i * LENGTH + j;
+            printf("index = %d\n", index);
             screen_buffer[index] = color;
         }
     }
