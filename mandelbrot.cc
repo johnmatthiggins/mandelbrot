@@ -32,10 +32,10 @@ int main() {
 }
 
 void fill_screen(uint8_t* screen_buffer) {
-    for (long i = 0; i < LENGTH; ++i) {
-        for (long j = 0; j < LENGTH; ++j) {
-            const double x0 = (double)(i - LENGTH) * (1 / LENGTH);
-            const double y0 = (double)(j - LENGTH) * (1 / LENGTH);
+    for (long i = 0; i < LENGTH; i++) {
+        for (long j = 0; j < LENGTH; j++) {
+            const double x0 = ((double)(i - LENGTH)) * (1 / (double)LENGTH);
+            const double y0 = ((double)(j - LENGTH)) * (1 / (double)LENGTH);
             double x = 0;
             double y = 0;
 
@@ -51,7 +51,7 @@ void fill_screen(uint8_t* screen_buffer) {
             }
 
             const uint8_t color = PALETTE[iteration];
-            printf("%d\n", color);
+            printf("%lu\n", color);
 
             const size_t index = (size_t)i * LENGTH + j;
             printf("index = %d\n", index);
