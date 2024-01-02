@@ -5,25 +5,23 @@
 
 #include <iostream>
 
-/* #include <opencv2/core.hpp> */
-/* #include <opencv2/highgui.hpp> */
-
 #include "mandelbrot.h"
 
-#define LENGTH (10000)
+#define HEIGHT (3000)
+#define WIDTH (3000)
 
 const uint8_t PALETTE[20] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
 
 int main() {
-    uint8_t* screen_buffer = (uint8_t*)malloc(LENGTH * LENGTH * sizeof(uint8_t));
+    uint8_t* screen_buffer = (uint8_t*)malloc(HEIGHT * WIDTH * sizeof(uint8_t));
     fill_screen(screen_buffer);
 
     // create buffer
     FILE* fptr = fopen("output", "wb");
 
-    for (size_t i = 0; i < LENGTH; ++i) {
-        for (size_t j = 0; j < LENGTH; ++j) {
-            const size_t index = i + j * LENGTH;
+    for (size_t i = 0; i < WIDTH; ++i) {
+        for (size_t j = 0; j < HEIGHT; ++j) {
+            const size_t index = i * WIDTH + j;
             fputc(screen_buffer[index], fptr);
         }
     }
@@ -32,10 +30,10 @@ int main() {
 }
 
 void fill_screen(uint8_t* screen_buffer) {
-    for (long i = 0; i < LENGTH; i++) {
-        for (long j = 0; j < LENGTH; j++) {
-            const double x0 = ((double)(i - LENGTH)) * (1 / (double)LENGTH);
-            const double y0 = ((double)(j - LENGTH)) * (1 / (double)LENGTH);
+    for (long i = 0; i < WIDTH; i++) {
+        for (long j = 0; j < HEIGHT; j++) {
+            const double x0 = ((double)(i - WIDTH)) * (1 / (double)WIDTH);
+            const double y0 = ((double)(j - HEIGHT)) * (1 / (double)HEIGHT);
             double x = 0;
             double y = 0;
 
@@ -51,10 +49,9 @@ void fill_screen(uint8_t* screen_buffer) {
             }
 
             const uint8_t color = PALETTE[iteration];
-            printf("%lu\n", color);
 
-            const size_t index = (size_t)i * LENGTH + j;
-            printf("index = %d\n", index);
+            const size_t index = (size_t)i * WIDTH + j;
+
             screen_buffer[index] = color;
         }
     }
