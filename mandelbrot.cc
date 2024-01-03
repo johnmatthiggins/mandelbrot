@@ -9,8 +9,8 @@
 
 #include "mandelbrot.h"
 
-#define HEIGHT (long)(100000)
-#define WIDTH (long)(100000)
+#define HEIGHT (long)(10000)
+#define WIDTH (long)(10000)
 
 const uint8_t PALETTE[11] = { 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200 };
 
