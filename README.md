@@ -15,6 +15,7 @@ You must be on a UNIX-like system to run this program, or use something like Cyg
 You can run the program first by building it, then running the run command:
 
 ```sh
+make setup # setup the python environment
 make build # build the program
 make run   # run the program
 ```

@@ -1,3 +1,6 @@
+setup:
+	./setup.sh
+
 build:
 	export LDFLAGS="-L/opt/homebrew/Cellar"
 	export CPPFLAGS="-I/opt/homebrew/Cellar"
@@ -5,4 +8,4 @@ build:
 
 run:
 	./main
-	./render.py output
+	. venv/bin/activate && ./render.py output
