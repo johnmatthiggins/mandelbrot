@@ -1,3 +1,9 @@
+/* 
+ * Program: Mandelbrot Set Visualizer
+ * Description: A multithreaded visualization of the Mandelbrot set in 2D space.
+ * Author: John M. Higgins
+ */
+
 #include <cstdint>
 #include <cstdlib>
 #include <cmath>
@@ -12,6 +18,7 @@
 const uint8_t PALETTE[11] = { 0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200 };
 
 int main() {
+    printf("# of threads = %d\n", PCOUNT);
     uint8_t* screen_buffer = (uint8_t*)malloc(HEIGHT * WIDTH * sizeof(uint8_t));
 
     long start = get_milliseconds();
@@ -20,9 +27,8 @@ int main() {
 
     long end = get_milliseconds();
 
-    printf("%ld milliseconds\n", end - start);
+    printf("runtime = %ld milliseconds\n", end - start);
 
-    // create buffer
     FILE* fptr = fopen("output", "wb");
 
     for (size_t i = 0; i < WIDTH; ++i) {
@@ -41,7 +47,6 @@ void fill_screen(uint8_t* screen_buffer) {
     size_t next_index = 0;
 
     for (size_t i = 0; i < PCOUNT; i++) {
-        printf("STARTING THREAD %ld\n", i);
         size_t start_index = next_index;
         size_t end_index = start_index + step;
 
@@ -54,7 +59,6 @@ void fill_screen(uint8_t* screen_buffer) {
         std::thread p(fill_space, start_index, end_index, screen_buffer);
         threads.push_back(std::move(p));
     }
-    printf("Kicked off threads...\n");
 
     for (size_t i = 0; i < threads.size(); i++) {
         threads.at(i).join();
