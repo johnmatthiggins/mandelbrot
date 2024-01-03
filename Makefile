@@ -5,4 +5,4 @@ build:
 
 run:
 	./main
-	./load.py output
+	./render.py output
