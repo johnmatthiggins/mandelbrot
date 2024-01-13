@@ -6,7 +6,7 @@ import numpy as np
 import plotly.express as px
 
 def main():
-    arr = np.zeros((10000, 10000), dtype=np.int32)
+    arr = np.zeros((10000, 10000), dtype=np.uint8)
 
     with open(sys.argv[1], 'rb') as f:
         for i in range(arr.shape[0]):
@@ -14,7 +14,11 @@ def main():
                 byte = f.read(1)
                 arr[i, j] = int.from_bytes(byte, "big")
 
-    cv2.imwrite('mandelbrot_hd.png', arr)
+    blur = cv2.GaussianBlur(arr, (5,5), 0)
+
+    filename = 'mandelbrot_hd.jpg'
+    print('Writing to %s...' % filename)
+    cv2.imwrite(filename, arr)
 
 if __name__ == '__main__':
     main()

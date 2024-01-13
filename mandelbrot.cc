@@ -78,8 +78,8 @@ void fill_space(size_t start, size_t end, uint8_t* screen_buffer) {
         const size_t x_index = i / WIDTH;
         const size_t y_index = i % WIDTH;
 
-        const double x0 = adjust_dimension(y_index, WIDTH, -2, 0.5);
-        const double y0 = adjust_dimension(x_index, HEIGHT, -1.75, 1.75);
+        const double x0 = adjust_dimension(y_index, WIDTH, -1, 0);
+        const double y0 = adjust_dimension(x_index, HEIGHT, -1, 0);
         double x = 0;
         double y = 0;
 
@@ -94,7 +94,7 @@ void fill_space(size_t start, size_t end, uint8_t* screen_buffer) {
             iteration++;
         }
 
-        const uint8_t color = PALETTE[iteration];
+        const uint8_t color = (uint8_t)iteration;
         const size_t index = x_index * WIDTH + y_index;
 
         screen_buffer[index] = color;
